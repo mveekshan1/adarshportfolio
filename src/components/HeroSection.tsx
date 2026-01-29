@@ -55,17 +55,25 @@ export const HeroSection = () => {
             <span className="gradient-text text-glow-cyan">Analyst</span>
           </motion.h1>
 
-          {/* Name */}
+          {/* Profile photo + Name */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-8"
+            className="mb-8 flex flex-col items-center"
           >
+            {/* Place your profile image at `public/profile.jpg` */}
+            <img
+              src="/profile.jpg"
+              alt="Adarsh Rajaboina"
+              loading="lazy"
+              className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-primary/30 shadow-lg mb-4"
+            />
+
             <h2 className="text-2xl md:text-3xl font-medium text-foreground mb-2">
               Adarsh Rajaboina
             </h2>
-            <p className="text-muted-foreground font-mono text-sm">
+            <p className="text-muted-foreground font-mono text-sm text-center">
               Data Analyst • ML Engineer • Deep Learning Enthusiast
             </p>
           </motion.div>
