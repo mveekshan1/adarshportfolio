@@ -61,7 +61,7 @@ export const ContactSection = () => {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/in/adarsh-rajaboina",
     },
   ];
 
