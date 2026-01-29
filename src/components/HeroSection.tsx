@@ -20,10 +20,26 @@ export const HeroSection = () => {
     const [src, setSrc] = useState<string>("/placeholder.svg");
 
     useEffect(() => {
-      const testImg = new Image();
-      testImg.onload = () => setSrc("/profile.jpg");
-      testImg.onerror = () => setSrc("/placeholder.svg");
-      testImg.src = "/profile.jpg";
+      const candidates = ["/profile.jpg", "/profile.jpeg", "/profile.png", "/profile.webp"];
+      let mounted = true;
+
+      const tryNext = (index: number) => {
+        if (!mounted) return;
+        if (index >= candidates.length) return;
+        const img = new Image();
+        img.onload = () => {
+          if (mounted) setSrc(candidates[index]);
+        };
+        img.onerror = () => {
+          tryNext(index + 1);
+        };
+        img.src = candidates[index];
+      };
+
+      tryNext(0);
+      return () => {
+        mounted = false;
+      };
     }, []);
 
     return (
