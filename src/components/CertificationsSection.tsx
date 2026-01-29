@@ -35,12 +35,12 @@ const certifications: Certification[] = [
   },
   {
     id: "salesforce-cert",
-    title: "Salesforce Administrator",
+    title: "Salesforce Agentforce Specialist",
     issuer: "Salesforce",
     date: "Dec 2025",
     description:
-      "Earned the Salesforce Administrator certification. Certificate PDF is available.",
-    link: "/pdf-viewer.html?file=/salesforcecert.pdf",
+      "Earned the Salesforce Certified Agentforce Specialist certification. Certificate PDF is available.",
+    link: "https://drive.google.com/file/d/1CSlYoOZka_RYgJ4niD7pcrljgcWYXYjP/view?usp=sharing",
     mode: "Online",
   },
 ];
