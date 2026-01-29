@@ -1,0 +1,8 @@
+[build]
+  # Use npm instead of bun to run the build script on Netlify
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  # adjust if you use Netlify Functions; otherwise leave default
+  directory = "netlify/functions"
