@@ -8,7 +8,7 @@ const insightCards = [
     icon: GraduationCap,
     title: "Academic Focus",
     value: "Computer Science",
-    description: "B.Tech CSE with specialization in Data Science & Analytics",
+    description: "B.Tech Computer Science and Engineering student",
     color: "primary",
   },
   {
