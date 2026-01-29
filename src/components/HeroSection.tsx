@@ -64,7 +64,7 @@ export const HeroSection = () => {
           >
             {/* Place your profile image at `public/profile.jpg` */}
             <img
-              src="/profile.jpeg"
+              src="dist\profile.jpeg"
               alt="Adarsh Rajaboina"
               loading="lazy"
               className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-primary/30 shadow-lg mb-4"
