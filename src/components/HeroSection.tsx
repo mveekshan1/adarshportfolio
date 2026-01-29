@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { ArrowDown, Database, Brain, BarChart3 } from "lucide-react";
 import { DataParticles, GridBackground } from "./DataParticles";
 import { TypewriterText } from "./TypewriterText";
@@ -14,6 +15,26 @@ export const HeroSection = () => {
   const scrollToOverview = () => {
     document.getElementById("overview")?.scrollIntoView({ behavior: "smooth" });
   };
+
+  function ProfileImage() {
+    const [src, setSrc] = useState<string>("/placeholder.svg");
+
+    useEffect(() => {
+      const testImg = new Image();
+      testImg.onload = () => setSrc("/profile.jpg");
+      testImg.onerror = () => setSrc("/placeholder.svg");
+      testImg.src = "/profile.jpg";
+    }, []);
+
+    return (
+      <img
+        src={src}
+        alt="Adarsh Rajaboina"
+        loading="lazy"
+        className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-primary/30 shadow-lg mb-4"
+      />
+    );
+  }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -63,13 +84,8 @@ export const HeroSection = () => {
             className="mb-8 flex flex-col items-center"
           >
             {/* Place your profile image at `public/profile.jpg` */}
-            <img
-              src="/profile.jpg"
-              alt="Adarsh Rajaboina"
-              loading="lazy"
-              onError={(e) => (e.currentTarget.src = "/placeholder.svg")}
-              className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-4 border-primary/30 shadow-lg mb-4"
-            />
+            {/** Show placeholder by default, try to load profile.jpg and replace if available */}
+            <ProfileImage />
 
             <h2 className="text-2xl md:text-3xl font-medium text-foreground mb-2">
               Adarsh Rajaboina
