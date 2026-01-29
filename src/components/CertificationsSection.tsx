@@ -37,7 +37,7 @@ const certifications: Certification[] = [
     id: "salesforce-cert",
     title: "Salesforce Administrator",
     issuer: "Salesforce",
-    date: "Dec 2024",
+    date: "Dec 2025",
     description:
       "Earned the Salesforce Administrator certification. Certificate PDF is available.",
     link: "/pdf-viewer.html?file=/salesforcecert.pdf",
