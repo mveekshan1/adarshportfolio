@@ -33,6 +33,16 @@ const certifications: Certification[] = [
     link: "https://www.coursera.org/account/accomplishments/verify/PGYKJYV9BU8D",
     mode: "Online",
   },
+  {
+    id: "salesforce-cert",
+    title: "Salesforce Administrator",
+    issuer: "Salesforce",
+    date: "Dec 2024",
+    description:
+      "Earned the Salesforce Administrator certification. Certificate PDF is available.",
+    link: "/pdf-viewer.html?file=/salesforcecert.pdf",
+    mode: "Online",
+  },
 ];
 
 const CertificationCard = ({

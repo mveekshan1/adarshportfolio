@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Certificate Viewer</title>
+    <style>
+      html, body { height: 100%; margin: 0; background: #111; color: #fff; }
+      .viewer { display:flex; flex-direction:column; height:100%; }
+      .controls { display:flex; gap:8px; align-items:center; padding:8px; background:rgba(0,0,0,.6); }
+      .canvasWrap { flex:1; display:flex; align-items:center; justify-content:center; overflow:auto; }
+      canvas { box-shadow:0 4px 30px rgba(0,0,0,.6); }
+      button, select { background:#222; color:#fff; border:1px solid #333; padding:6px 10px; border-radius:6px; }
+      .pager { margin-left:8px; font-family:monospace; }
+    </style>
+  </head>
+  <body>
+    <div class="viewer">
+      <div class="controls">
+        <button id="prev">Prev</button>
+        <button id="next">Next</button>
+        <span class="pager"><span id="pageNum">1</span> / <span id="pageCount">1</span></span>
+        <label style="margin-left:8px">Zoom</label>
+        <select id="scale">
+          <option value="0.75">75%</option>
+          <option value="1" selected>100%</option>
+          <option value="1.5">150%</option>
+          <option value="2">200%</option>
+        </select>
+        <div style="flex:1"></div>
+      </div>
+      <div class="canvasWrap"><canvas id="pdfCanvas"></canvas></div>
+    </div>
+
+    <!-- PDF.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const file = params.get('file') || '/salesforcecert.pdf';
+
+      // Configure worker
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+      const canvas = document.getElementById('pdfCanvas');
+      const ctx = canvas.getContext('2d');
+      let pdfDoc = null;
+      let pageNum = 1;
+      let pageCount = 1;
+      let scale = parseFloat(document.getElementById('scale').value) || 1;
+
+      function renderPage(num) {
+        pdfDoc.getPage(num).then(function(page) {
+          const viewport = page.getViewport({ scale: scale });
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          const renderContext = { canvasContext: ctx, viewport: viewport };
+          page.render(renderContext);
+          document.getElementById('pageNum').textContent = pageNum;
+        });
+      }
+
+      // Load the PDF (CORS/host must allow)
+      pdfjsLib.getDocument(file).promise.then(function(pdf) {
+        pdfDoc = pdf;
+        pageCount = pdf.numPages;
+        document.getElementById('pageCount').textContent = pageCount;
+        renderPage(pageNum);
+      }).catch(function(err){
+        document.body.innerHTML = '<div style="padding:24px;color:#f88">Failed to load PDF. ' + (err && err.message) + '</div>';
+      });
+
+      document.getElementById('prev').addEventListener('click', function(){
+        if (pageNum <= 1) return;
+        pageNum--; renderPage(pageNum);
+      });
+      document.getElementById('next').addEventListener('click', function(){
+        if (pageNum >= pageCount) return;
+        pageNum++; renderPage(pageNum);
+      });
+      document.getElementById('scale').addEventListener('change', function(e){
+        scale = parseFloat(e.target.value) || 1; renderPage(pageNum);
+      });
+
+      // Attempt to prevent right-click save of the canvas (not foolproof)
+      document.addEventListener('contextmenu', e => e.preventDefault());
+    </script>
+  </body>
+</html>
